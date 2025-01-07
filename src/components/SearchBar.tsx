@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useStore } from "@/store/useStore";
 import { analyticsInstance } from "@/lib/analytics";
-
+//
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const { userId } = useStore();
