@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "../store/useCartStore";
 import { useAuthStore } from "../store/useAuthStore";
 import { analyticsInstance } from "../lib/analytics";
 
 const CartPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { items, removeItem, getTotalValue } = useCartStore();
   const userId = useAuthStore((state) => state.userId);
 
@@ -18,7 +19,7 @@ const CartPage: React.FC = () => {
         currency: "USD",
         productName: items.map((item) => item.name).join(", "),
       });
-      navigate("/checkout");
+      router.push("/checkout");
     }
   };
 

@@ -8,3 +8,7 @@ export interface Product {
   featured?: boolean;
   category: string;
 }
+
+export interface CartItem extends Product {
+  quantity: number;
+}

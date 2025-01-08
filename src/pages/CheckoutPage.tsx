@@ -1,11 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "../store/useCartStore";
 import { useAuthStore } from "../store/useAuthStore";
 import { analyticsInstance } from "../lib/analytics";
 
 const CheckoutPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { items, getTotalValue, clearCart } = useCartStore();
   const userId = useAuthStore((state) => state.userId);
 
@@ -21,7 +21,7 @@ const CheckoutPage: React.FC = () => {
       clearCart();
       // Simulate successful payment
       alert("Payment successful!");
-      navigate("/");
+      router.push("/");
     }
   };
 

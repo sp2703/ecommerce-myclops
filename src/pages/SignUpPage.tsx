@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/useAuthStore';
-import { analyticsInstance } from '../lib/analytics';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "../store/useAuthStore";
+import { analyticsInstance } from "../lib/analytics";
 
 const SignUpPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const setUserId = useAuthStore((state) => state.setUserId);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: ''
+    name: "",
+    email: "",
+    password: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,23 +17,29 @@ const SignUpPage: React.FC = () => {
     // Simulate user creation with a random ID
     const newUserId = `user_${Math.random().toString(36).substr(2, 9)}`;
     setUserId(newUserId);
-    analyticsInstance.trackSignup({ userId: newUserId });
-    navigate('/');
+    // analyticsInstance.trackSignup({ userId: newUserId });
+    router.push("/");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   return (
     <div className="max-w-md mx-auto">
       <h1 className="text-3xl font-bold mb-8">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-lg shadow-md p-6 space-y-4"
+      >
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Name
           </label>
           <input
@@ -47,7 +53,10 @@ const SignUpPage: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <input
@@ -61,7 +70,10 @@ const SignUpPage: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
@@ -83,6 +95,6 @@ const SignUpPage: React.FC = () => {
       </form>
     </div>
   );
-}
+};
 
 export default SignUpPage;
